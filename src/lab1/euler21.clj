@@ -11,15 +11,12 @@
           sum
           (if (zero? (mod n i))
             (let [other (quot n i)]
-              (recur (inc i)
-                     (if (= other i)
-                       (+ sum i)
-                       (+ sum i other))))
+              (recur (inc i) (if (= other i) (+ sum i) (+ sum i other))))
             (recur (inc i) sum)))))))
 
-;; --- Решения ---
+; --- Решения ---
 
-;; 1. Монолитная реализация с хвостовой рекурсией
+; 1. Монолитная реализация с хвостовой рекурсией
 (defn solve-tail-rec []
   (loop [n 1 total 0]
     (if (> n 9999)
@@ -31,7 +28,7 @@
           (recur (inc n) (+ total n))
           (recur (inc n) total))))))
 
-;; 2. Обычная рекурсивная версия (с сохранением интерфейса run-rec)
+; 2. Обычная рекурсивная версия (с сохранением интерфейса run-rec)
 (defn solve-rec []
   (loop [n 1 total 0]
     (if (> n 9999)
@@ -43,7 +40,7 @@
           (recur (inc n) (+ total n))
           (recur (inc n) total))))))
 
-;; 3. Модульный/функциональный подход
+; 3. Модульный/функциональный подход
 (defn amicable? [n]
   (let [d-n (sum-proper-divisors n)
         d-d-n (sum-proper-divisors d-n)]
@@ -55,17 +52,19 @@
        (filter amicable?)
        (reduce + 0)))
 
-;; 4. Использование for
+; 4. Использование for (исправлено под lint)
 (defn solve-for []
-  (->> (for [n (range 1 10000)
-             :let [d-n (sum-proper-divisors n)
-                   d-d-n (sum-proper-divisors d-n)]
-             :when (and (= d-d-n n)
-                        (not= d-n n))]
-         n)
-       (reduce + 0)))
+  (reduce
+   +
+   0
+   (for [n (range 1 10000)
+         :let [d-n (sum-proper-divisors n)
+               d-d-n (sum-proper-divisors d-n)]
+         :when (and (= d-d-n n)
+                    (not= d-n n))]
+     n)))
 
-;; 5. Ленивые последовательности
+; 5. Ленивые последовательности
 (defn lazy-amicables []
   (letfn [(amicable? [n]
             (let [d-n (sum-proper-divisors n)

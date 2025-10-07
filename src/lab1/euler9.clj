@@ -1,61 +1,54 @@
 (ns lab1.euler9)
 
-;; Вспомогательная функция product (умножение коллекции, безопасно для больших чисел)
-(defn product
-  [coll]
+(defn product [coll]
   (reduce *' coll))
 
-; --- Решения ---
-
-; 1. Монолитная реализация с хвостовой рекурсией (исправлено: один loop с a и b)
+ ;; 1. Хвостовая рекурсия
 (defn tail-rec []
   (loop [a 1 b 2]
-    (if (> a 333)
-      nil
+    (when-not (> a 333)
       (let [c (- 1000 a b)]
         (cond
-          (> b c) (recur (inc a) (inc (inc a))) ; перейти к следующему a, установить b = a'+1
+          (> b c) (recur (inc a) (inc (inc a)))
           (= (+ (* a a) (* b b)) (* c c)) (* a b c)
           :else (recur a (inc b)))))))
 
-; 2. Монолитная реализация с обычной рекурсией.
 (defn solve-rec []
   (loop [a 1 b 2]
-    (if (> a 333)
-      nil
+    (when-not (> a 333)
       (let [c (- 1000 a b)]
         (cond
-          (> b c) (recur (inc a) (inc (inc a))) ; следующий a, b = a'+1
+          (> b c) (recur (inc a) (inc a))  ; если b > c, увеличиваем a и сбрасываем b на a+1
           (= (+ (* a a) (* b b)) (* c c)) (* a b c)
           :else (recur a (inc b)))))))
 
-; 3. Модульный подход (генерация тройок).
+;; 3. Модульный подход
 (defn generate-triples []
   (for [a (range 1 334)
-        b (range (inc a) 500) ; b > a, и b < c => b < 500 примерно
+        b (range (inc a) 500)
         :let [c (- 1000 a b)]
         :when (and (> c b) (= (+ (* a a) (* b b)) (* c c)))]
     [a b c]))
 
 (defn solve-modular []
   (->> (generate-triples)
-       (first)
+       first
        (apply *)))
 
-; 4. Использование map/flatten.
+;; 4. map/flatten
 (defn solve-with-map []
   (->> (range 1 334)
        (mapcat (fn [a]
                  (map (fn [b]
                         (let [c (- 1000 a b)]
-                          (if (and (> c b) (= (+ (* a a) (* b b)) (* c c)))
-                            (* a b c)
-                            nil)))
+                          (when (and (> c b)
+                                     (= (+ (* a a) (* b b)) (* c c)))
+                            (* a b c))))
                       (range (inc a) 500))))
        (remove nil?)
-       (first)))
+       first))
 
-; 5. Ленивый подход с генератором
+;; 5. Ленивый генератор
 (defn lazy-triples []
   (letfn [(triples-gen [a b]
             (let [c (- 1000 a b)]
@@ -63,7 +56,8 @@
                (cond
                  (> a 333) nil
                  (> b c) (triples-gen (inc a) (inc (inc a)))
-                 (= (+ (* a a) (* b b)) (* c c)) (cons (* a b c) (triples-gen a (inc b)))
+                 (= (+ (* a a) (* b b)) (* c c))
+                 (cons (* a b c) (triples-gen a (inc b)))
                  :else (triples-gen a (inc b))))))]
     (triples-gen 1 2)))
 
