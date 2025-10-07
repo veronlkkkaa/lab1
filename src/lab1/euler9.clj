@@ -18,7 +18,7 @@
           (= (+ (* a a) (* b b)) (* c c)) (* a b c)
           :else (recur a (inc b)))))))
 
-; 2. Монолитная реализация с обычной рекурсией
+; 2. Монолитная реализация с обычной рекурсией.
 (defn solve-rec []
   (loop [a 1 b 2]
     (if (> a 333)
@@ -29,8 +29,7 @@
           (= (+ (* a a) (* b b)) (* c c)) (* a b c)
           :else (recur a (inc b)))))))
 
-
-; 3. Модульный подход (генерация тройок)
+; 3. Модульный подход (генерация тройок).
 (defn generate-triples []
   (for [a (range 1 334)
         b (range (inc a) 500) ; b > a, и b < c => b < 500 примерно
@@ -43,7 +42,7 @@
        (first)
        (apply *)))
 
-; 4. Использование map/flatten
+; 4. Использование map/flatten.
 (defn solve-with-map []
   (->> (range 1 334)
        (mapcat (fn [a]
