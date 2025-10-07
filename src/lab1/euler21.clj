@@ -28,7 +28,7 @@
           (recur (inc n) (+ total n))
           (recur (inc n) total))))))
 
-; 2. Обычная рекурсивная версия (с сохранением интерфейса run-rec)
+; 2. Обычная рекурсивная версия
 (defn solve-rec []
   (loop [n 1 total 0]
     (if (> n 9999)
@@ -52,7 +52,7 @@
        (filter amicable?)
        (reduce + 0)))
 
-; 4. Использование for (исправлено под lint)
+; 4. Использование for 
 (defn solve-for []
   (reduce
    +

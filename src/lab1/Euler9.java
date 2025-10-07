@@ -15,10 +15,11 @@ public class Euler9 {
         return -1;
     }
 
-    // Метод, который ждёт Clojure: solve() без аргументов
+    // Метод, который ждёт Clojure: solve() без аргументов.
     public static int solve() {
         return findPythagoreanTripletProduct(1000);
     }
+  
 
     // Удобный main для локальной проверки
     public static void main(String[] args) {
