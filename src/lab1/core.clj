@@ -28,8 +28,18 @@
 (defn -main
   []
   ;; получаем эталонные результаты из Java (они вычисляются сразу)
-  (let [euler9-java-result (try (Euler9/solve) (catch Throwable e (println "Error calling Euler9/solve:" (.getMessage e)) nil))
-        euler21-java-result (try (Euler21/solve) (catch Throwable e (println "Error calling Euler21/solve:" (.getMessage e)) nil))]
+  (let [euler9-java-result
+        (try
+          (Euler9/solve)
+          (catch Throwable e
+            (println "Error calling Euler9/solve:" (.getMessage e))
+            nil))
+        euler21-java-result
+        (try
+          (Euler21/solve)
+          (catch Throwable e
+            (println "Error calling Euler21/solve:" (.getMessage e))
+            nil))]
 
     (println "---")
     (println "ЗАДАЧА 9 (Пифагорова тройка)")
