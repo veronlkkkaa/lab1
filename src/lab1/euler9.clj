@@ -3,7 +3,7 @@
 (defn product [coll]
   (reduce *' coll))
 
- ;; 1. Хвостовая рекурсия
+;; 1. Хвостовая рекурсия
 (defn tail-rec []
   (loop [a 1 b 2]
     (when-not (> a 333)
@@ -13,6 +13,7 @@
           (= (+ (* a a) (* b b)) (* c c)) (* a b c)
           :else (recur a (inc b)))))))
 
+;; 2. Обычная рекурсивная версия
 (defn solve-rec []
   (loop [a 1 b 2]
     (when-not (> a 333)
