@@ -4,11 +4,11 @@
             [lab1.euler21 :as euler21])
   (:import [lab1 Euler9 Euler21]))
 
-(defn- check-result
-  [expected actual]
-  (if (= expected actual)
-    (str actual " ✓")
-    (str actual " ✗ (ожидалось " expected ")")))
+;(defn- check-result
+;  [expected actual]
+;  (if (= expected actual)
+;    (str actual " ✓")
+;    (str actual " ✗ (ожидалось " expected ")")))
 
 ;; безопасный вызов с таймингом и обработкой исключений
 (defn safe-call [label f]
