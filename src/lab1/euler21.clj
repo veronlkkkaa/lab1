@@ -52,7 +52,7 @@
        (filter amicable?)
        (reduce + 0)))
 
-; 4. Использование for 
+; 4. Использование for
 (defn solve-for []
   (reduce
    +
