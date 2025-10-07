@@ -16,18 +16,10 @@ FIXME: explanation
 
 FIXME: listing of options this app accepts.
 
-## Examples
-
-...
 
 ### Bugs
 
 ...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
 ## License
 
 Copyright © 2025 FIXME
